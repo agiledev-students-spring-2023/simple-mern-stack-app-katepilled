@@ -21,7 +21,7 @@ const AboutMe = props => {
 
           As for music, some of my favorite artists are Alex G, The Smiths, and 
           Bladee. Some of my favorite songs are “Where is My Mind” by the Pixies, 
-          “Runner” by Alex G, and “Trip” by Young Lean. I recently picked up the 
+          “Runner” by Alex G, and “Trip” by Yung Lean. I recently picked up the 
           guitar so I could learn how to play songs I like, but I’m not so great at 
           it yet.
 
