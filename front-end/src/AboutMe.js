@@ -1,35 +1,58 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import './AboutMe.css'
-import Me from './me.png'
+import loadingIcon from './loading.gif'
+import axios from 'axios';
+
 
 const AboutMe = props => {
-    return (
-      <>
-        <h1>About Me</h1>
+  const [aboutText, setText] = useState('')
+  const [aboutImage, setImage] = useState([])
+  const [loaded, setLoaded] = useState(false)
+  const [error, setError] = useState('')
 
-        <img src= {Me} width={250} height={250} alt="me" />
-        
-        
-          <p class = "text"> Hello! My name is Kate, and I'm currently a junior studying 
-          computer science here at NYU! The image above is a picture my roommate drew of 
-          me last Halloween.
-
-          In my free time, I enjoy reading, writing, watching anime,
-          and going to fun places with my friends. Music and writing are really 
-          important to me. I'm minoring in creative writing, and I primarily write
-          poetry.
-
-          As for music, some of my favorite artists are Alex G, The Smiths, and 
-          Bladee. Some of my favorite songs are “Where is My Mind” by the Pixies, 
-          “Runner” by Alex G, and “Trip” by Yung Lean. I recently picked up the 
-          guitar so I could learn how to play songs I like, but I’m not so great at 
-          it yet.
-
-          That's all from me! Thanks for reading </p>
-          
-      </>
-    )
+  /**
+   * A nested function that fetches about text and image from the back-end server.
+   */
+  const fetchInfo = () => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/about`)
+      .then(response => {
+        // axios bundles up all response data in response.data property
+        const aboutText = response.data.aboutText
+        const aboutImage = response.data.aboutImage
+        setText(aboutText)
+        setImage(aboutImage)
+      })
+      .catch(err => {
+        setError(err)
+      })
+      .finally(() => {
+        setLoaded(true)
+      })
   }
 
+  useEffect(() => {
+    // fetch messages this once
+    fetchInfo()
+  }) 
 
+  return (
+    <>
+      <h1>About Me</h1>
+      
+      <img src={aboutImage} width="30%"/>
+      <div class = 'text'>
+        <p>{aboutText}</p>
+
+      </div>
+
+      
+      {error && <p className="Messages-error">{error}</p>}
+      {!loaded && <img src={loadingIcon} alt="loading" />}
+    </>
+  )
+}
+
+// make this component available to be imported into any other file
 export default AboutMe
