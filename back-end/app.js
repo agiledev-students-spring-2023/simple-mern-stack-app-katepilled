@@ -26,7 +26,8 @@ const { User } = require('./models/User')
 app.get('/about', async (req, res) =>{
   try{
     res.json({
-      aboutText: 'Hello This is me!',
+      aboutText: 'Hello! My name is Kate, and I\'m currently a junior studying computer science here at NYU! The image above is a picture my roommate drew of me last Halloween. In my free time, I enjoy reading, writing, watching anime, and going to fun places with my friends. Music and writing are really important to me. I\'m minoring in creative writing, and I primarily write poetry. As for music, some of my favorite artists are Alex G, The Smiths, and  Bladee. Some of my favorite songs are “Where is My Mind” by the Pixies, “Runner” by Alex G, and “Trip” by Yung Lean. I recently picked up the guitar so I could learn how to play songs I like, but I’m not so great at  it yet.',
+      aboutImage: 'https://pbs.twimg.com/profile_images/1621583814848806913/HAFNwTMR_400x400.jpg'
     })
   }
   catch (err) {
