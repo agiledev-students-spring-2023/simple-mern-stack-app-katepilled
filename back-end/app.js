@@ -18,9 +18,24 @@ mongoose
   .then(data => console.log(`Connected to MongoDB`))
   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
-// load the dataabase models we want to deal with
+// load the database models we want to deal with
 const { Message } = require('./models/Message')
 const { User } = require('./models/User')
+
+// a route to fetch about me text and picture
+app.get('/about', async (req, res) =>{
+  try{
+    res.json({
+      aboutText: 'Hello This is me!',
+    })
+  }
+  catch (err) {
+    console.error(err)
+    res.status(400).json({
+      status: 'failed to retrieve data',
+    })
+  }
+})
 
 // a route to handle fetching all messages
 app.get('/messages', async (req, res) => {
@@ -78,5 +93,6 @@ app.post('/messages/save', async (req, res) => {
   }
 })
 
+        
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
